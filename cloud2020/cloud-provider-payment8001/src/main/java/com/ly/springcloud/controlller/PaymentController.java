@@ -25,6 +25,7 @@ public class PaymentController {
     @PostMapping("save")
     @ApiOperation(value = "保存支付流水信息")
     CommonResult<Boolean> create(@RequestBody Payment payment) {
+        log.info("插入的信息是 {}", payment);
         int i = paymentService.create(payment);
         if (i <= 0) {
             return new CommonResult(ResultEnum.FAil.getCode(), ResultEnum.FAil.getDesc(), true);
