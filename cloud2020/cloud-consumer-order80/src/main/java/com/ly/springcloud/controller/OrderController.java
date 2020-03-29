@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author luoyong
  *  * @create 2020-03-29 11:15 下午
@@ -30,14 +27,12 @@ public class OrderController {
 
     @GetMapping("/consumer/payment/create")
     public CommonResult<Payment> create(Payment payment) {
-        return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
+        return restTemplate.postForObject(PAYMENT_URL + "/payment/save", payment, CommonResult.class);
     }
 
     @GetMapping("/consumer/payment/getPaymentById")
     public CommonResult<Payment> getPaymentById(@RequestParam Long id) {
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", id);
-        return restTemplate.getForObject(PAYMENT_URL + "/payment/getPaymentById", CommonResult.class, paramMap);
+        return restTemplate.getForObject(PAYMENT_URL + "/payment/getPaymentById?id=" + id, CommonResult.class);
     }
 
 }
