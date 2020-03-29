@@ -1,5 +1,6 @@
 package com.ly.springcloud.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Payment {
 
+    @ApiModelProperty("主键")
     private Long id;
 
+    @ApiModelProperty("支付流水号")
     private String serial;
 }
