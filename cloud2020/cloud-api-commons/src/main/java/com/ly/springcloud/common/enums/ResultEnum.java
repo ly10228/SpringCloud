@@ -28,7 +28,7 @@ public enum ResultEnum {
      */
     private String desc;
 
-    private ResultEnum(Integer code, String desc) {
+    ResultEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
     }
