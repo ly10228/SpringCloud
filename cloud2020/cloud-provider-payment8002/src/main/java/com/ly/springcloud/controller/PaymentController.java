@@ -1,4 +1,4 @@
-package com.ly.springcloud.controlller;
+package com.ly.springcloud.controller;
 
 import com.ly.springcloud.common.CommonResult;
 import com.ly.springcloud.common.enums.ResultEnum;
@@ -7,7 +7,6 @@ import com.ly.springcloud.service.PaymentService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,10 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
-
-    @Value("${server.port}")
-    private String serverPort;
-
 
     @PostMapping("save")
     @ApiOperation(value = "保存支付流水信息")
