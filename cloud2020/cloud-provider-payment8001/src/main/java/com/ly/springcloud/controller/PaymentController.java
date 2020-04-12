@@ -7,7 +7,11 @@ import com.ly.springcloud.service.PaymentService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author luoyong
@@ -21,6 +25,9 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private EurekaDiscoveryClient discoveryClient;
 
     @PostMapping("save")
     @ApiOperation(value = "保存支付流水信息")
@@ -42,5 +49,26 @@ public class PaymentController {
         return new CommonResult(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getDesc(), payment);
     }
 
+
+    /**
+     * @return
+     * @Description: 服务发现 获取服务信息
+     * @author luoyong
+     * @create 7:08 下午 2020/4/12
+     * @last modify by [LuoYong 7:08 下午 2020/4/12 ]
+     */
+    @GetMapping("/discovery")
+    public Object discovery() {
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            log.info("element:\t" + element);
+        }
+
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
+        }
+        return this.discoveryClient;
+    }
 
 }
